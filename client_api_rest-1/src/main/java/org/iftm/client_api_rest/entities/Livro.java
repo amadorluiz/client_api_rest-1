@@ -1,8 +1,8 @@
 package org.iftm.client_api_rest.entities;
 
-// feito por Silvano
-
+import java.io.Serial;
 import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Livro implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
