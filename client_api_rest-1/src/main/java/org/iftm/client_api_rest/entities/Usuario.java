@@ -1,6 +1,5 @@
 package org.iftm.client_api_rest.entities;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -14,7 +13,7 @@ import jakarta.persistence.Transient;
 
 @Entity
 public class Usuario implements Serializable {
-    @Serial
+    //@Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -41,7 +40,6 @@ public class Usuario implements Serializable {
     private List<Livro> livros;
 
     // Construtores, getters e setters
-   
     public Usuario(Long id, String cpf, String nome, String email, LocalDate dataNascimento, String telefone) {
         this.id = id;
         this.cpf = cpf;

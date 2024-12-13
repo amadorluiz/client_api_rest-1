@@ -1,6 +1,5 @@
 package org.iftm.client_api_rest.entities;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
@@ -11,7 +10,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Livro implements Serializable {
-    @Serial
+    //@Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -30,16 +29,20 @@ public class Livro implements Serializable {
     @Column(nullable = false)
     private int anoPublicacao;
 
+    @Column(nullable = false)
+    private boolean disponivel;
+
     // Construtores, getters e setters
     public Livro() {
     }
 
-    public Livro(Long id, String titulo, String autor, String genero, int anoPublicacao) {
+    public Livro(Long id, String titulo, String autor, String genero, int anoPublicacao, boolean disponivel) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.genero = genero;
         this.anoPublicacao = anoPublicacao;
+        this.disponivel = disponivel;
     }
 
     public Long getId() {
@@ -80,5 +83,13 @@ public class Livro implements Serializable {
 
     public void setAnoPublicacao(int anoPublicacao) {
         this.anoPublicacao = anoPublicacao;
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
     }
 }

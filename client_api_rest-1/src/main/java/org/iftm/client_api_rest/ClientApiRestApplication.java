@@ -1,10 +1,11 @@
 package org.iftm.client_api_rest;
 
 import java.time.LocalDate;
-import org.iftm.client_api_rest.entities.Usuario;
+
 import org.iftm.client_api_rest.entities.Livro;
-import org.iftm.client_api_rest.repositories.Usuariorepo;
-import org.iftm.client_api_rest.repositories.LivroRepository;
+import org.iftm.client_api_rest.entities.Usuario;
+import org.iftm.client_api_rest.service.LivroService;
+import org.iftm.client_api_rest.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,10 +15,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ClientApiRestApplication implements CommandLineRunner {
 
     @Autowired
-    private Usuariorepo usuarioRepository;
+    private LivroService livroService;
 
     @Autowired
-    private LivroRepository livroRepository;
+    private UsuarioService usuarioService;
 
     public static void main(String[] args) {
         SpringApplication.run(ClientApiRestApplication.class, args);
@@ -26,19 +27,18 @@ public class ClientApiRestApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Criando e salvando usuários
-        Usuario usuario1 = new Usuario(1L, "01122333497", "Joao Marcelo", "joao-marcelo@gmail.com", LocalDate.of(1990, 1, 15), "123456789");
-        Usuario usuario2 = new Usuario(2L, "02233444558", "Maria Clara", "maria-clara@gmail.com", LocalDate.of(1985, 6, 25), "987654321");
-        usuarioRepository.save(usuario1);
-        usuarioRepository.save(usuario2);
         
-        System.out.println("\nUsuário: " + usuarioRepository.findById(1L).get().getNome());
+        Usuario usuario1 = new Usuario(null, "01122333497", "Joao Marcelo", "joao-marcelo@gmail.com", LocalDate.now(), "123456789");
+        usuarioService.inserirUsuario(usuario1);
+        
+        
+        System.out.println("\nUsuário: " + usuarioService.consultarPorId(1L).get().getNome());
         
         // Criando e salvando livros
-        Livro livro1 = new Livro();
-        Livro livro2 = new Livro();
-        livroRepository.save(livro1);
-        livroRepository.save(livro2);
+        Livro livro1 = new Livro(null, "Java", "Deitel","x", 2000, true);
+        livroService.save(livro1);
 
-        System.out.println("\nLivro: " + livroRepository.findById(livro1.getId()).get().getTitulo());
+        System.out.println("\nLivro: " + livroService.findByTitulo("Java").get(0).getId());
+        
     }
 }
