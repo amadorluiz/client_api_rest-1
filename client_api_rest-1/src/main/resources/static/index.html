@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        button { margin-top: 10px; padding: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Lista de Livros</h1>
+    <button onclick="carregarLivros()">Carregar Livros</button>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Gênero</th>
+                <th>Ano</th>
+            </tr>
+        </thead>
+        <tbody id="livros"></tbody>
+    </table>
+    
+    <h1>Lista de Usuários</h1>
+    <button onclick="carregarUsuarios()">Carregar Usuários</button>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Email</th>
+                <th>Data Nascimento</th>
+                <th>Telefone</th>
+            </tr>
+        </thead>
+        <tbody id="usuarios"></tbody>
+    </table>
+
+    <script>
+        function carregarLivros() {
+            fetch('http://localhost:8080/api/livros') // Altere para a URL correta da API
+                .then(response => response.json())
+                .then(data => {
+                    const tabela = document.getElementById('livros');
+                    tabela.innerHTML = '';
+                    data.forEach(livro => {
+                        const row = `<tr>
+                            <td>${livro.id}</td>
+                            <td>${livro.titulo}</td>
+                            <td>${livro.autor}</td>
+                            <td>${livro.genero}</td>
+                            <td>${livro.anoPublicacao}</td>
+                        </tr>`;
+                        tabela.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error('Erro ao carregar livros:', error));
+        }
+        
+        function carregarUsuarios() {
+            fetch('http://localhost:8080/api/usuarios') // Altere para a URL correta da API
+                .then(response => response.json())
+                .then(data => {
+                    const tabela = document.getElementById('usuarios');
+                    tabela.innerHTML = '';
+                    data.forEach(usuario => {
+                        const row = `<tr>
+                            <td>${usuario.id}</td>
+                            <td>${usuario.nome}</td>
+                            <td>${usuario.cpf}</td>
+                            <td>${usuario.email}</td>
+                            <td>${usuario.dataNascimento}</td>
+                            <td>${usuario.telefone}</td>
+                        </tr>`;
+                        tabela.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error('Erro ao carregar usuários:', error));
+        }
+        function carregarLivros() {
+    const livros = [
+        { id: 1, titulo: "O Mistério da Casa Azul", autor: "Carlos Mendes", genero: "Suspense", anoPublicacao: 2015 },
+        { id: 2, titulo: "A Jornada das Estrelas", autor: "Fernanda Souza", genero: "Ficção Científica", anoPublicacao: 2020 }
+    ];
+
+    const tabela = document.getElementById('livros');
+    tabela.innerHTML = '';
+    livros.forEach(livro => {
+        const row = `<tr>
+            <td>${livro.id}</td>
+            <td>${livro.titulo}</td>
+            <td>${livro.autor}</td>
+            <td>${livro.genero}</td>
+            <td>${livro.anoPublicacao}</td>
+        </tr>`;
+        tabela.innerHTML += row;
+    });
+}
+
+function carregarUsuarios() {
+    const usuarios = [
+        { id: 1, nome: "João da Silva", cpf: "123.456.789-00", email: "joao.silva@email.com", dataNascimento: "1985-06-15", telefone: "(11) 98765-4321" },
+        { id: 2, nome: "Maria Oliveira", cpf: "987.654.321-00", email: "maria.oliveira@email.com", dataNascimento: "1990-10-22", telefone: "(21) 91234-5678" }
+    ];
+
+    const tabela = document.getElementById('usuarios');
+    tabela.innerHTML = '';
+    usuarios.forEach(usuario => {
+        const row = `<tr>
+            <td>${usuario.id}</td>
+            <td>${usuario.nome}</td>
+            <td>${usuario.cpf}</td>
+            <td>${usuario.email}</td>
+            <td>${usuario.dataNascimento}</td>
+            <td>${usuario.telefone}</td>
+        </tr>`;
+        tabela.innerHTML += row;
+    });
+}
+
+    </script>
+</body>
+</html>

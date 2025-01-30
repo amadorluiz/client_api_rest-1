@@ -1,3 +1,5 @@
+package org.iftm.client_api_rest.controller;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,40 +21,40 @@ import org.springframework.web.bind.annotation.RestController;
 public class LivroController {
 
     @Autowired
-    private LivroService livroService;
+    private LivroService LivroService;
 
     // Listar todos os livros
     @GetMapping
     public ResponseEntity<List<Livro>> findAll() {
-        List<Livro> livros = livroService.findAll();
+        List<Livro> livros = LivroService.findAll();
         return ResponseEntity.ok(livros);
     }
 
     // Buscar livro por ID
     @GetMapping("/{id}")
     public ResponseEntity<Livro> findById(@PathVariable Long id) {
-        Optional<Livro> livro = livroService.findById(id);
+        Optional<Livro> livro = LivroService.findById(id);
         return livro.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     // Criar um novo livro
     @PostMapping
     public ResponseEntity<Livro> create(@RequestBody Livro livro) {
-        Livro novoLivro = livroService.insert(livro);
+        Livro novoLivro = LivroService.insert(livro);
         return ResponseEntity.ok(novoLivro);
     }
 
     // Atualizar um livro
     @PutMapping("/{id}")
     public ResponseEntity<Livro> update(@PathVariable Long id, @RequestBody Livro livro) {
-        Livro livroAtualizado = livroService.update(id, livro);
+        Livro livroAtualizado = LivroService.update(id, livro);
         return ResponseEntity.ok(livroAtualizado);
     }
 
     // Deletar um livro
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        livroService.delete(id);
+        LivroService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

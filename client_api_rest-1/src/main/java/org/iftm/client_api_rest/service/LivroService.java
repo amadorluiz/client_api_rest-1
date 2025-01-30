@@ -89,4 +89,19 @@ public class LivroService {
             throw new IllegalArgumentException("O ano de publicação deve ser maior que zero.");
         }
     }
+
+    public List<Livro> findAll() {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+    }
+
+    public Livro insert(Livro livro) {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'insert'");
+    }
+
+    public void delete(Long id) {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
 }

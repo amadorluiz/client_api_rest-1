@@ -106,4 +106,29 @@ public class UsuarioService {
         LocalDate dataCorte = LocalDate.now().minusYears(idadeMaxima);
         return Usuariorepo.findByDataNascimentoAfter(dataCorte);
     }
+
+    public void delete(Long id) {
+      
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
+
+    public Usuario update(Long id, Usuario usuario) {
+      
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    public Usuario insert(Usuario usuario) {
+      
+        throw new UnsupportedOperationException("Unimplemented method 'insert'");
+    }
+
+    public Optional<Usuario> findById(Long id) {
+      
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    }
+
+    public List<Usuario> findAll() {
+      
+        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+    }
 }
