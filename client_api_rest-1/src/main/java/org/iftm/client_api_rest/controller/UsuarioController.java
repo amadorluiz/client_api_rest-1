@@ -10,14 +10,15 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/Usuario")
+@RequestMapping("/usuario")
+@CrossOrigin(origins = "*")
 public class UsuarioController {
 
     @Autowired
     private UsuarioService UsuarioService;
 
     // Listar todos os usuários
-    @GetMapping
+    @GetMapping("/{all}")
     public ResponseEntity<List<Usuario>> findAll() {
         List<Usuario> usuarios = UsuarioService.findAll();
         return ResponseEntity.ok(usuarios);

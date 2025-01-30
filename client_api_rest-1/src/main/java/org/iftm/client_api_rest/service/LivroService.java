@@ -92,7 +92,7 @@ public class LivroService {
 
     public List<Livro> findAll() {
         
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return livroRepository.findAll();
     }
 
     public Livro insert(Livro livro) {

@@ -5,15 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f4f4f4; }
-        button { margin-top: 10px; padding: 10px; cursor: pointer; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #2980b9;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #1f6692;
+        }
     </style>
 </head>
 <body>
-    <h1>Lista de Livros</h1>
+    <h1>Consulta de Livros</h1>
     <button onclick="carregarLivros()">Carregar Livros</button>
     <table>
         <thead>
@@ -28,7 +64,7 @@
         <tbody id="livros"></tbody>
     </table>
     
-    <h1>Lista de Usuários</h1>
+    <h1>Consulta de Usuários</h1>
     <button onclick="carregarUsuarios()">Carregar Usuários</button>
     <table>
         <thead>
@@ -43,89 +79,61 @@
         </thead>
         <tbody id="usuarios"></tbody>
     </table>
-
     <script>
         function carregarLivros() {
-            fetch('http://localhost:8080/api/livros') // Altere para a URL correta da API
-                .then(response => response.json())
-                .then(data => {
-                    const tabela = document.getElementById('livros');
-                    tabela.innerHTML = '';
-                    data.forEach(livro => {
-                        const row = `<tr>
-                            <td>${livro.id}</td>
-                            <td>${livro.titulo}</td>
-                            <td>${livro.autor}</td>
-                            <td>${livro.genero}</td>
-                            <td>${livro.anoPublicacao}</td>
-                        </tr>`;
-                        tabela.innerHTML += row;
-                    });
-                })
-                .catch(error => console.error('Erro ao carregar livros:', error));
+            buscarLivros();
         }
-        
-        function carregarUsuarios() {
-            fetch('http://localhost:8080/api/usuarios') // Altere para a URL correta da API
-                .then(response => response.json())
-                .then(data => {
-                    const tabela = document.getElementById('usuarios');
-                    tabela.innerHTML = '';
-                    data.forEach(usuario => {
-                        const row = `<tr>
-                            <td>${usuario.id}</td>
-                            <td>${usuario.nome}</td>
-                            <td>${usuario.cpf}</td>
-                            <td>${usuario.email}</td>
-                            <td>${usuario.dataNascimento}</td>
-                            <td>${usuario.telefone}</td>
-                        </tr>`;
-                        tabela.innerHTML += row;
-                    });
-                })
-                .catch(error => console.error('Erro ao carregar usuários:', error));
+
+        async function buscarLivros() {
+            try {
+                const response = await fetch("http://localhost:8080/livro");
+                if (!response.ok) {
+                    throw new Error("Erro ao carregar livros");
+                }
+                const livros = await response.json();
+                const tabela = document.getElementById('livros');
+                tabela.innerHTML = '';
+                livros.forEach(livro => {
+                    const row = `<tr>
+                        <td>${livro.id}</td>
+                        <td>${livro.titulo}</td>
+                        <td>${livro.autor}</td>
+                        <td>${livro.genero}</td>
+                        <td>${livro.anoPublicacao}</td>
+                    </tr>`;
+                    tabela.innerHTML += row;
+                });
+            } catch (error) {
+                alert("Erro ao buscar livros:" + error);
+            }
         }
-        function carregarLivros() {
-    const livros = [
-        { id: 1, titulo: "O Mistério da Casa Azul", autor: "Carlos Mendes", genero: "Suspense", anoPublicacao: 2015 },
-        { id: 2, titulo: "A Jornada das Estrelas", autor: "Fernanda Souza", genero: "Ficção Científica", anoPublicacao: 2020 }
-    ];
-
-    const tabela = document.getElementById('livros');
-    tabela.innerHTML = '';
-    livros.forEach(livro => {
-        const row = `<tr>
-            <td>${livro.id}</td>
-            <td>${livro.titulo}</td>
-            <td>${livro.autor}</td>
-            <td>${livro.genero}</td>
-            <td>${livro.anoPublicacao}</td>
-        </tr>`;
-        tabela.innerHTML += row;
-    });
-}
-
-function carregarUsuarios() {
-    const usuarios = [
-        { id: 1, nome: "João da Silva", cpf: "123.456.789-00", email: "joao.silva@email.com", dataNascimento: "1985-06-15", telefone: "(11) 98765-4321" },
-        { id: 2, nome: "Maria Oliveira", cpf: "987.654.321-00", email: "maria.oliveira@email.com", dataNascimento: "1990-10-22", telefone: "(21) 91234-5678" }
-    ];
-
-    const tabela = document.getElementById('usuarios');
-    tabela.innerHTML = '';
-    usuarios.forEach(usuario => {
-        const row = `<tr>
-            <td>${usuario.id}</td>
-            <td>${usuario.nome}</td>
-            <td>${usuario.cpf}</td>
-            <td>${usuario.email}</td>
-            <td>${usuario.dataNascimento}</td>
-            <td>${usuario.telefone}</td>
-        </tr>`;
-        tabela.innerHTML += row;
-    });
-}
-
+    
+        async function carregarUsuarios() {
+            try {
+                const response = await fetch("http://localhost:8080/usuario/all");
+                if (!response.ok) {
+                    throw new Error("Erro ao carregar usuários");
+                }
+                const usuarios = await response.json();
+    
+                const tabela = document.getElementById('usuarios');
+                tabela.innerHTML = '';
+                usuarios.forEach(usuario => {
+                    const row = `<tr>
+                        <td>${usuario.id}</td>
+                        <td>${usuario.nome}</td>
+                        <td>${usuario.cpf}</td>
+                        <td>${usuario.email}</td>
+                        <td>${usuario.dataNascimento}</td>
+                        <td>${usuario.telefone}</td>
+                    </tr>`;
+                    tabela.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Erro ao buscar usuários:", error);
+            }
+        }
     </script>
+    
 </body>
 </html>
