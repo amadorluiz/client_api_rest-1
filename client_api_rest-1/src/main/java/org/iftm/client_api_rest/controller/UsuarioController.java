@@ -26,29 +26,29 @@ public class UsuarioController {
 
     // Buscar usuário por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable Long id) {
-        Optional<Usuario> usuario = UsuarioService.findById(id);
+    public ResponseEntity<Usuario> consultarPorId(@PathVariable Long id) {
+        Optional<Usuario> usuario = UsuarioService.consultarPorId(id);
         return usuario.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     // Criar um novo usuário
     @PostMapping
     public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
-        Usuario novoUsuario = UsuarioService.insert(usuario);
+        Usuario novoUsuario = UsuarioService.inserirUsuario(usuario);
         return ResponseEntity.ok(novoUsuario);
     }
 
     // Atualizar um usuário
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario usuario) {
-        Usuario usuarioAtualizado = UsuarioService.update(id, usuario);
+        Usuario usuarioAtualizado = UsuarioService.modificarUsuario(id, usuario);
         return ResponseEntity.ok(usuarioAtualizado);
     }
 
     // Deletar um usuário
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        UsuarioService.delete(id);
+        UsuarioService.apagarUsuario(id);
         return ResponseEntity.noContent().build();
     }
 }

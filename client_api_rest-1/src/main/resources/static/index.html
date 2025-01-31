@@ -68,7 +68,7 @@
     
     <h1>Consulta de Usuários</h1>
     <button onclick="carregarUsuarios()">Carregar Todos os Usuários</button><br />
-    <input type="number" id="usuarioID" placeholder="Digite o ID do Usuário">
+    <input type="number" id="usuarioId" placeholder="Digite o ID do Usuário">
     <button onclick="carregarUsuarioPorId()">Buscar Usuário</button>
     <table>
         <thead>
@@ -81,7 +81,7 @@
                 <th>Telefone</th>
             </tr>
         </thead>
-        <tbody id="usuarios"></tbody>
+        <tbody id="usuario"></tbody>
     </table>  
 
     <script>
@@ -173,7 +173,7 @@
         });}
 
     async function carregarUsuarioPorId() {
-        const usuarioId = document.getElementById("usuarioID").value;
+        const usuarioId = document.getElementById("usuarioId").value;
         alert(usuarioId);
         if (!usuarioId) {
             alert("Por favor, insira um ID válido.");
