@@ -80,17 +80,14 @@
         <tbody id="usuarios"></tbody>
     </table>
     <script>
-        function carregarLivros() {
-            buscarLivros();
-        }
-
-        async function buscarLivros() {
+        async function carregarLivros() {
             try {
-                const response = await fetch("http://localhost:8080/livro");
+                const response = await fetch("http://localhost:8080/livro/all");
                 if (!response.ok) {
                     throw new Error("Erro ao carregar livros");
                 }
                 const livros = await response.json();
+                
                 const tabela = document.getElementById('livros');
                 tabela.innerHTML = '';
                 livros.forEach(livro => {
@@ -104,13 +101,13 @@
                     tabela.innerHTML += row;
                 });
             } catch (error) {
-                alert("Erro ao buscar livros:" + error);
+                console.error("Erro ao buscar livros:", error);
             }
         }
     
         async function carregarUsuarios() {
             try {
-                const response = await fetch("http://localhost:8080/usuario/all");
+                const response = await fetch("http://localhost:8080/usuario");
                 if (!response.ok) {
                     throw new Error("Erro ao carregar usuários");
                 }

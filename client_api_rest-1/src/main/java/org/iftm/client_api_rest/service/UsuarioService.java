@@ -129,6 +129,6 @@ public class UsuarioService {
 
     public List<Usuario> findAll() {
       
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return Usuariorepo.findAll();
     }
 }
