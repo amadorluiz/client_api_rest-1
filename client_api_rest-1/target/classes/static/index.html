@@ -50,7 +50,9 @@
 </head>
 <body>
     <h1>Consulta de Livros</h1>
-    <button onclick="carregarLivros()">Carregar Livros</button>
+    <button onclick="carregarLivros()">Carregar Todos os Livros</button><br />
+    <input type="number" id="livroId" placeholder="Digite o ID do livro">
+    <button onclick="carregarLivroPorId()">Buscar Livro</button>
     <table>
         <thead>
             <tr>
@@ -65,7 +67,9 @@
     </table>
     
     <h1>Consulta de Usuários</h1>
-    <button onclick="carregarUsuarios()">Carregar Usuários</button>
+    <button onclick="carregarUsuarios()">Carregar Todos os Usuários</button><br />
+    <input type="number" id="usuarioID" placeholder="Digite o ID do Usuário">
+    <button onclick="carregarUsuarioPorId()">Buscar Usuário</button>
     <table>
         <thead>
             <tr>
@@ -78,11 +82,12 @@
             </tr>
         </thead>
         <tbody id="usuarios"></tbody>
-    </table>
+    </table>  
+
     <script>
         async function carregarLivros() {
             try {
-                const response = await fetch("http://localhost:8080/livro/all");
+                const response = await fetch("http://localhost:8080/livro");
                 if (!response.ok) {
                     throw new Error("Erro ao carregar livros");
                 }
@@ -130,7 +135,80 @@
                 console.error("Erro ao buscar usuários:", error);
             }
         }
+
+        async function carregarLivroPorId() {
+        const livroId = document.getElementById("livroId").value;
+        alert(livroId);
+        if (!livroId) {
+            alert("Por favor, insira um ID válido.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/livro/${livroId}`);
+            if (!response.ok) {
+                throw new Error("Livro não encontrado");
+            }
+            const livro = await response.json();
+
+            exibirLivros([livro]); // Exibe apenas o livro encontrado
+        } catch (error) {
+            console.error("Erro ao buscar livro:", error);
+            alert("Livro não encontrado.");
+        }
+    }
+
+    function exibirLivros(livros) {
+        const tabela = document.getElementById("livros");
+        tabela.innerHTML = "";
+        livros.forEach(livro => {
+            const row = `<tr>
+                <td>${livro.id}</td>
+                <td>${livro.titulo}</td>
+                <td>${livro.autor}</td>
+                <td>${livro.genero}</td>
+                <td>${livro.anoPublicacao}</td>
+            </tr>`;
+            tabela.innerHTML += row;
+        });}
+
+    async function carregarUsuarioPorId() {
+        const usuarioId = document.getElementById("usuarioID").value;
+        alert(usuarioId);
+        if (!usuarioId) {
+            alert("Por favor, insira um ID válido.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/usuario/${usuarioId}`);
+            if (!response.ok) {
+                throw new Error("Usuário não encontrado");
+            }
+            const usuario = await response.json();
+
+            exibirUsuario([usuario]); // Exibe apenas o livro encontrado
+        } catch (error) {
+            console.error("Erro ao buscar usuario:", error);
+            alert("Usuário não encontrado.");
+        }
+    }
+
+    function exibirUsuario(usuario) {
+        const tabela = document.getElementById("usuario");
+        tabela.innerHTML = "";
+        usuario.forEach(usuario => {
+            const row = `<tr>
+                <td>${usuario.id}</td>
+                <td>${usuario.nome}</td>
+                <td>${usuario.cpf}</td>
+                <td>${usuario.email}</td>
+                <td>${usuario.dataNascimento}</td>
+                <td>${usuario.telefone}</td>
+            </tr>`;
+            tabela.innerHTML += row;
+        });}
     </script>
-    
+
 </body>
 </html>
